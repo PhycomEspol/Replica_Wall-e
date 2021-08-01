@@ -18,6 +18,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@drawable/phycom_logo" />
 
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:text="Conectar"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnDisconnect"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDisconnect"
+        android:layout_width="94dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="Desconectar"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="276dp"
