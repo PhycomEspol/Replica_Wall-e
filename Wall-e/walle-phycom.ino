@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <Servo.h>
 #include "DriverMotor.hpp"
 
 // Setting up variables
@@ -16,8 +17,10 @@
 #define RX_ARDUINO 1
 
 // Pines para servos
-#define ANALOG_D_PIN 10
-#define ANALOG_I_PIN 11
+#define SERVO_D_PIN 10
+#define SERVO_I_PIN 11
+Servo servoD;
+Servo servoI;
 
 // Motores
 DriverMotor motorI(PWM_VEL_I_PIN, DIRECCION_I_PIN, RETRO_I_PIN); 
@@ -35,51 +38,51 @@ char serialBuffer[MAX_SERIAL_LENGTH];
 
 void setup() {
   // put your setup code here, to run once:
+  servoI.attach(SERVO_D_PIN);
+  servoD.attach(SERVO_I_PIN);
   Serial.begin(38400); // Iniciando slave bluetooth
-
-
 }
 
 
 // --------------------------------------------------------------------------
 // Para análisis de señales Bluetooth
 // --------------------------------------------------------------------------
-void leerSerial() {
-  char input;
-  while (Serial.available() >= 1) {
-    input = Serial.read();
-  }
-
-
-  // Para eliminar la sobrecarga
-  if (serialLength == MAX_SERIAL_LENGTH) {
-    evaluarSerial();
-    serialBuffer[0] = 0;
-    serialLength = 0;
-  }
-
-}
-
 void evaluarSerial(){
 
   switch(primerChar) {
+
     // Movimiento de motores
-    case "w":
-      // Mover para adelante
-      break;
-    case "a":
-      // Girar a la izquierda
-      break;
-    case "s":
-      // Retroceder
-      break;
-    case "d":
-      // Girar a la derecha
-      break;
-    default: // Dejar de suministrar electricidad
-      break;
+    if (primerChar == "w") {
+      motorI.setVelocidad(255);
+      motorD.setVelocidad(255);
+    }
+    else if (primerChar == "a") {
+      motorI.setVelocidad(0);
+      motorD.setVelocidad(255);
+    }
+    else if (primerChar == "s") {
+      motorI.setVelocidad(-255);
+      motorD.setVelocidad(-255);
+    }
+    else if (primerChar == "d") {
+      motorI.setVelocidad(255);
+      motorD.setVelocidad(0);
+    }
 
     // Movimiento de servos
+    else if (isdigit(primerChar)) {  // Revisamos que los datos sean númericos
+      if (atoi(primerChar) <= 180 && atoi(primerChar) >=0) { // Entre 0 y 180 grados
+        //servoI.write(primerChar); Todavía no establecida la diferencia entre ambos brazos desde la app
+        //servoD.write(primerChar);
+      }
+    }
+
+    // Sin movimiento
+    else {
+      motorI.setVelocidad(0);
+      motorD.setVelocidad(0);
+    }
+    
   }
   
 }
@@ -90,40 +93,11 @@ void evaluarSerial(){
 
 void loop() {
   // put your main code here, to run repeatedly:
+  char input;
 
+  while (Serial.available() >= 1) {
+     primerChar = Serial.read();
+  }
+
+  evaluarSerial();  
 }
-
-
-
-/*
-void readSerial() {
-
-	// Read incoming byte
-	char inchar = Serial.read();
-
-	// If the string has ended, evaluate the serial buffer
-	if (inchar == '\n' || inchar == '\r') {
-
-		if (serialLength > 0) evaluateSerial();
-
-		serialBuffer[0] = 0;
-		serialLength = 0;
-
-	// Otherwise add to the character to the buffer
-	} else {
-		  if (serialLength == 0) firstChar = inchar;
-      else {
-        serialBuffer[serialLength-1] = inchar;
-        serialBuffer[serialLength] = 0;
-      }
-		serialLength++;
-
-		// To prevent overflows, evalute the buffer if it is full
-		if (serialLength == MAX_SERIAL_LENGTH) {
-			evaluateSerial();
-			serialBuffer[0] = 0;
-			serialLength = 0;
-		}
-	}
-}
-*\
