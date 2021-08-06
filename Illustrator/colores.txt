@@ -1,0 +1,3 @@
+rojo:    #FF2A48
+celeste: #01CCFF
+azul:    #00223B
