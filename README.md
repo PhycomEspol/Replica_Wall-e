@@ -34,6 +34,7 @@ En la variable "retro_pin" se indica si el motor gira en sentido de reversa. Si 
 
 ### Mover los Brazos
 Los brazos, al contrario que el Wall-e real, tienen un largo definido e invariable, solo cambia el ángulo de su posición y para esto se usa un servomotor en cada brazo. Los brazos se pueden mover en un intervalo de ángulo de 45° - 180° (considerando como referencia que 0° es una pose de los brazos apuntando hacia abajo y 90° es una pose apuntado hacia adelante).
+
 <a href="url"><img src="Images/angule_range_arms.svg" align="center" alt="rango de angulos" height="350" width="350" ></a>
 
 ## Control Remoto
