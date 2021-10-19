@@ -1,7 +1,8 @@
 # RobotEco
-Es una imitación del robot wall-e (personaje de Disney).
+<a href="url"><img src="Images/robot.jpeg" align="right" alt="Robot" height="350" width="350" ></a>
+
+Es una imitación del robot Wall-e (personaje de Disney).
 Este robot tiene la capacidad de movilizarse con sus ruedas como de mover sus brazos, todo esto gracias a una aplicación que cumple la función de control remoto
-(insertar imagen del robot)
 
 ## Materiales
 | Descripción | Cantidad | Precio por unidad |
@@ -33,6 +34,6 @@ En la variable "retro_pin" se indica si el motor gira en sentido de reversa. Si 
 
 ### Mover los Brazos
 Los brazos, al contrario que el Wall-e real, tienen un largo definido e invariable, solo cambia el ángulo de su posición y para esto se usa un servomotor en cada brazo. Los brazos se pueden mover en un intervalo de ángulo de 45° - 180° (considerando como referencia que 0° es una pose de los brazos apuntando hacia abajo y 90° es una pose apuntado hacia adelante).
-
+<a href="url"><img src="Images/angule_range_arms.svg" align="center" alt="rango de angulos" height="350" width="350" ></a>
 
 ## Control Remoto
