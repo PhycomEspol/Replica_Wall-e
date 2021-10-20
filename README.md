@@ -38,3 +38,21 @@ Los brazos, al contrario que el Wall-e real, tienen un largo definido e invariab
 <a href="url"><img src="Images/angule_range_arms.svg" align="center" alt="rango de angulos" height="350" width="350" ></a>
 
 ## Control Remoto
+La aplicación movil del control remoto fue desarrollada en Android Studio, por lo que obviamente solo funcionará en dispositivos android. Esta se conecta con el arduino de forma inalambrica por bluetooth haciendo uso de un módulo `HC-05`.
+
+El diseño de la app se hizo en [Illustrator](Illustrator/controles.ai) para luego exportar los diseños vectorizados con extención .svg. Los diseños implican las flechas direccionales, los íconos usados para el control de los brazos y el fondo de cruz que se ve en la imagen a continuación.
+
+Desde la aplicación al arduino enviamos solo npumeros enteros, los cuales dependiendo de su valor interpretamos una acción diferente. A continuación una tabla con los valores enviados:
+
+| Valor | Acción | Descripción |
+| :---: | :---: | :--- |
+| 1 | Avanzar | Mueve los dos motores  para avanzar |
+| 2 | Girar a la Izquierda | Mueve solo el motor derecho |
+| 3 | Retroceder | Mueve los dos motores en sentido opuesto para retroceder |
+| 4 | Girar a la Derecha | Mueve solo el motor izquierdo |
+| 10 - 145 | Mover Brazo Izquierdo | <p>Mueve el servo izquierdo entre sus 45° a 180° <br> &nbsp;&nbsp; ◾ &nbsp;&nbsp;10 -> 45° <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp; ◾ 145 -> 180°<p/> |
+| 150 - 285 | Mover Brazo Derecho | <p>Mueve el servo derecho entre sus 45° a 180° <br> &nbsp;&nbsp; ◾ 150 -> 45° <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br/> &nbsp;&nbsp; ◾ 285 -> 180°<p/> |
+
+
+
+
