@@ -42,18 +42,18 @@ void DriverMotor::setDireccion(int direccion) { // De 0 a 255
   switch (direccion) {
 
     case 1: //forward
-      digitalWrite(currentPin, HIGH);
+      analogWrite(currentPin, 150); // De 0 a 255
       digitalWrite(dirPin, HIGH);
       digitalWrite(retroPin, LOW);
       break;
     case 2: //backward
-      digitalWrite(currentPin, HIGH);
+      analogWrite(currentPin, -150); // De 0 a 255
       digitalWrite(dirPin, LOW);
       digitalWrite(retroPin, HIGH);
       break;
 
     default: //still
-      digitalWrite(currentPin, LOW);
+      analogWrite(currentPin, 0); // De 0 a 255
       break;
 
   }

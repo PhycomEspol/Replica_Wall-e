@@ -5,12 +5,12 @@
 // Setting up variables
 
 // Pines para los motores
-#define DIRECCION_D_PIN 6  //IN3
-#define RETRO_D_PIN 5  //IN4
-#define PWM_VEL_D_PIN 3  //ENB
-#define DIRECCION_I_PIN 10 //IN1
-#define RETRO_I_PIN 9  //IN2
-#define PWM_VEL_I_PIN 11  //ENA
+#define DIRECCION_D_PIN 9  //IN3
+#define RETRO_D_PIN 10  //IN4
+#define PWM_VEL_D_PIN 11  //ENB
+#define DIRECCION_I_PIN 4 //IN1
+#define RETRO_I_PIN 5  //IN2
+#define PWM_VEL_I_PIN 3  //ENA
 
 // Pines para módulo HC05
 #define TX_ARDUINO 0
@@ -27,7 +27,8 @@ DriverMotor motorI(PWM_VEL_I_PIN, DIRECCION_I_PIN, RETRO_I_PIN);
 DriverMotor motorD(PWM_VEL_D_PIN, DIRECCION_D_PIN, RETRO_D_PIN);
 
 // Parseo de la señal
-String primerDato;
+int primerDato;
+uint8_t serialLength = 0;
 
 
 // --------------------------------------------------------------------------
@@ -46,31 +47,33 @@ void setup() {
 // --------------------------------------------------------------------------
 void evaluarSerial(){
   // Movimiento de motores
-  if (primerDato == "w") {
+  if (primerDato == 1) { //Movimiento para adelante
     motorI.setDireccion(1);
     motorD.setDireccion(1);
   }
-  else if (primerDato == "a") {
+  else if (primerDato == 2) { //Movimiento para la izquierda
     motorD.setDireccion(1);
     motorI.setDireccion(0);
   }
-  else if (primerDato == "s") {
+  else if (primerDato == 3) { //Movimiento en reversa
     motorI.setDireccion(2);
     motorD.setDireccion(2);
   }
-  else if (primerDato == "d") {
+  else if (primerDato == 4) { //Movimiento para la derecha
     motorI.setDireccion(1);
     motorD.setDireccion(0);
   }
 
   // Movimiento de servos
-  else if (isdigit(primerDato[0])) {  // Revisamos que los datos sean númericos "ANGULO-BI/BD"
-    int angulo = atoi(getValor(primerDato, '-', 0).c_str());
-    String brazo = getValor(primerDato, '-', 1);
-    if (angulo <= 180 && angulo >=45) { // Entre 0 y 180 grados
-      if (brazo.compareTo("bd") == 0) servoD.write(angulo);
-      if (brazo.compareTo("bi") == 0) servoI.write(angulo);
-    }
+  else if (primerDato >= 10 && 145 >= primerDato){
+    servoI.write((primerDato+45)-10); // Movimiento brazo izquierdo
+    motorI.setDireccion(0);
+    motorD.setDireccion(0);
+  }
+  else if (primerDato >= 150 && 285 >= primerDato){
+    servoD.write((primerDato+45)-150); // Movimiento brazo derecho
+    motorI.setDireccion(0);
+    motorD.setDireccion(0);
   }
 
   // Sin movimiento
@@ -78,23 +81,6 @@ void evaluarSerial(){
     motorI.setDireccion(0);
     motorD.setDireccion(0);
   }
-}
-
-String getValor(String data, char separador, int index)
-{
-  int found = 0;
-  int strIndex[] = {0, -1};
-  int maxIndex = data.length()-1;
-
-  for(int i=0; i<=maxIndex && found<=index; i++){
-    if(data.charAt(i)==separador || i==maxIndex){
-        found++;
-        strIndex[0] = strIndex[1]+1;
-        strIndex[1] = (i == maxIndex) ? i+1 : i;
-    }
-  }
-
-  return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 // --------------------------------------------------------------------------
 //
