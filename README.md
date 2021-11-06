@@ -1,5 +1,5 @@
 # RobotEco
-<a href="url"><img src="Images/robot.jpeg" align="right" alt="Robot" height="350" width="350" ></a>
+<a href="url"><img src="Images/Wall-E_V2.jpeg" align="right" alt="Robot" height="350" width="350" ></a>
 
 Es una imitación del robot Wall-e (personaje de Disney).
 Este robot tiene la capacidad de movilizarse con sus ruedas como de mover sus brazos, todo esto gracias a una aplicación que cumple la función de control remoto
