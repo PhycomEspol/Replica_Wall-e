@@ -7,10 +7,13 @@ Este robot tiene la capacidad de movilizarse con sus ruedas como de mover sus br
 ## Materiales
 | Descripción | Cantidad | Precio por unidad |
 | --- | ---: | ---: |
-| Material 1 | 1 | $0.00 |
-| Material 2 | 1 | $0.00 |
-| Material 3 | 1 | $0.00 |
-| Material 4 | 1 | $0.00 |
+| Arduino UNO R3 | 1 | $0.00 |
+| Controlador L298N | 1 | $0.00 |
+| Motor reductor | 2 | $0.00 |
+| Baterias 9V | 2 | $0.00 |
+| Servomotores | 2 | $0.00 |
+| Bread board | 1 | $0.00 |
+| Bluetooth HC-05 | 1 | $0.00 |
 
 ## Movilización
 ### Moverse en el espacio
