@@ -108,7 +108,6 @@ class _ArmSlideState extends State<ArmSlide> {
         customThumb = image;
       });
     });
-    //setState(() {});
     super.initState();
   }
   

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:walle_app/ui/colors.dart';
 import 'package:walle_app/ui/themes.dart';
 import 'package:walle_app/wall-e/wall-e.dart';
 
 import 'arm/arm_slide.dart';
+import 'body/joystick.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,7 +57,9 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -73,7 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: dark_blue,
+      //backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -103,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ArmSlide(wall_e.leftArm),
+            //ArmSlide(wall_e.leftArm),
             //SvgPicture.asset(wall_e.left_arm.assetName),
-
+            MyJoystick(),
           ],
         ),
         
