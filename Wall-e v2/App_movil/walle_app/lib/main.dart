@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/ui/themes.dart';
 import 'package:walle_app/wall-e/wall-e.dart';
 
 import 'arm/arm_slide.dart';
+import 'bluetooth/btn_connection.dart';
 import 'body/joystick.dart';
+
+//static ScreenState statePage = ScreenState.FIRST_PAGE;
 
 void main() {
   runApp(MyApp());
@@ -110,7 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             //ArmSlide(wall_e.leftArm),
             //SvgPicture.asset(wall_e.left_arm.assetName),
-            MyJoystick(),
+            //MyJoystick(),
+            BtnConnection(screenstate: ScreenState.FIRST_PAGE),
           ],
         ),
         

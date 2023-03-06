@@ -13,6 +13,9 @@ class MyTheme{
       accentColor: light_gray_2,
       backgroundColor: dark_blue,
       scaffoldBackgroundColor: Colors.white,
+
+      fontFamily: GoogleFonts.roboto.toString(),
+
       textTheme: TextTheme(
         headline1: GoogleFonts.roboto(
           textStyle: const TextStyle(
@@ -62,7 +65,12 @@ class MyTheme{
             fontWeight: FontWeight.bold
           )
         ),
-        
+        button: GoogleFonts.roboto(
+          textStyle: const TextStyle(
+            color: Colors.white, 
+            fontWeight: FontWeight.w900,
+          )
+        ),
       ),
 
     );
