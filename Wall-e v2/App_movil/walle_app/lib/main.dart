@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/ui/screens/ConnectionScreen.dart';
 import 'package:walle_app/ui/screens/ControlScreen.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/ui/screens/SplashScreen.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: theme.backgroundColor,
       ),*/
-      home: RemoteControl(),
+      home: ConnectionScreen(),
     );
   }
 }
