@@ -72,3 +72,14 @@ Background animado sacado de:
 https://www.youtube.com/watch?v=0dL3fON-q90&ab_channel=CodingwithIndy
 
 
+## Lista de íconos
+
+https://api.flutter.dev/flutter/material/Icons-class.html
+
+
+## Animation Curves
+
+https://api.flutter.dev/flutter/animation/Curves-class.html
+
+
+
