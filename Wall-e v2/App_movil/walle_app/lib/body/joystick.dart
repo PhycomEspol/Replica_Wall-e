@@ -7,13 +7,21 @@ import 'joystick_stick.dart';
 import 'walle_body.dart';
 
 class MyJoystick extends StatefulWidget {
-  const MyJoystick({
-    Key? key,
+  
+  double diameterStick;
+  double diameterBase;
 
-  }) : super(key: key);
+  MyJoystick({
+    super.key,
+    required this.diameterBase,
+    required this.diameterStick,
+  });
 
   @override
-  _MyJoystickState createState() => _MyJoystickState();
+  _MyJoystickState createState() => _MyJoystickState(
+    diameterBase: this.diameterBase,
+    diameterStick: this.diameterStick,
+  );
 }
 
 class _MyJoystickState extends State<MyJoystick> {
@@ -24,9 +32,13 @@ class _MyJoystickState extends State<MyJoystick> {
   double _x = 0;
   double _y = 0;
 
-  
-  final double diameterStick = 28;
-  final double diameterBase = 225;
+  double diameterBase;
+  double diameterStick;
+
+  _MyJoystickState({
+    required this.diameterBase,
+    required this.diameterStick,
+  });
 
   @override
   Widget build(BuildContext context) {

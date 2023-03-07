@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/ui/screens/ControlScreen.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/ui/screens/SplashScreen.dart';
 import 'package:walle_app/ui/themes.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: theme.backgroundColor,
       ),*/
-      home: SplashScreen(),
+      home: RemoteControl(),
     );
   }
 }
@@ -66,8 +67,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  Wall_e wall_e = Wall_e();
 
   @override
   Widget build(BuildContext context) {

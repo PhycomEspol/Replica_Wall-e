@@ -11,8 +11,10 @@ import 'arm.dart';
 
 class ArmSlide extends StatefulWidget {
   late Arm arm;
+  double heightSlide;
   ArmSlide(this.arm, {
     Key? key,
+    this.heightSlide = 200,
   }) : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class ArmSlide extends StatefulWidget {
     this.arm,
     this.arm.assetName, 
     this.arm.actualPosition,
+    heightSlide: this.heightSlide,
     thumbSize: 48,
     trackHeight: 8,
     activeTrackColor: yellow,
@@ -39,8 +42,11 @@ class _ArmSlideState extends State<ArmSlide> {
   Color activeTrackColor;
   Color inactiveTrackColor;
 
+  double heightSlide;
+
   
   _ArmSlideState(this.arm, this.assetName, this._value,{
+    required this.heightSlide,
     required this.thumbSize,
     required this.trackHeight,
     required this.activeTrackColor,
@@ -113,30 +119,33 @@ class _ArmSlideState extends State<ArmSlide> {
   
   @override
   Widget build(BuildContext context) {
-    return SfSliderTheme(
-      data: SfSliderThemeData(
-        overlayRadius: 24,
-        activeTrackColor: this.activeTrackColor,
-        inactiveTrackColor: this.inactiveTrackColor,
-        activeTrackHeight: this.trackHeight,
-        inactiveTrackHeight: this.trackHeight,
-      ),
-      child: SfSlider.vertical(
-        min: arm.minPosition,
-        max: arm.maxPosition,
-        thumbShape: customThumb != null
-            ? _SfThumbShape(this.customThumb!)
-            : const SfThumbShape(),
-        value: _value,
-        showTicks: false,    // separadores
-        showLabels: false,   // valor en separadores
-        enableTooltip: false,// label con el valor actual mientras lo muevo
-        onChanged: (dynamic newValue){
-          setState(() {
-            _value = newValue;
-            this.arm.setPosition(_value);
-          });
-        },
+    return SizedBox(
+      height: heightSlide,
+      child: SfSliderTheme(
+        data: SfSliderThemeData(
+          overlayRadius: 24,
+          activeTrackColor: this.activeTrackColor,
+          inactiveTrackColor: this.inactiveTrackColor,
+          activeTrackHeight: this.trackHeight,
+          inactiveTrackHeight: this.trackHeight,
+        ),
+        child: SfSlider.vertical(
+          min: arm.minPosition,
+          max: arm.maxPosition,
+          thumbShape: customThumb != null
+              ? _SfThumbShape(this.customThumb!)
+              : const SfThumbShape(),
+          value: _value,
+          showTicks: false,    // separadores
+          showLabels: false,   // valor en separadores
+          enableTooltip: false,// label con el valor actual mientras lo muevo
+          onChanged: (dynamic newValue){
+            setState(() {
+              _value = newValue;
+              this.arm.setPosition(_value);
+            });
+          },
+        ),
       ),
     );
   }
