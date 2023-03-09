@@ -81,5 +81,12 @@ https://api.flutter.dev/flutter/material/Icons-class.html
 
 https://api.flutter.dev/flutter/animation/Curves-class.html
 
+## Bluetooth
 
+https://pub.dev/packages/flutter_bluetooth_serial/install
+
+https://www.youtube.com/watch?v=JPDZbw6HJxs
+
+https://www.youtube.com/watch?v=Ofm1oyJZlmQ
+https://github.com/husamhamu/mm_app/blob/master/lib/connection.dart
 

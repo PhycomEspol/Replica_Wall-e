@@ -48,6 +48,9 @@ dependencies:
   flutter_joystick: ^0.0.3
   # Aquí podemos ver la lista de familyfonts ⬇
   # https://raw.githubusercontent.com/material-foundation/flutter-packages/main/packages/google_fonts/lib/google_fonts.dart
+  #Bluetooth
+  flutter_bluetooth_serial: ^0.4.0
+
 
 dev_dependencies:
   flutter_test:
