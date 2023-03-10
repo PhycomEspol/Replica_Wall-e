@@ -1,5 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:walle_app/bluetooth/btn_connection.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 
@@ -15,22 +17,49 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   late double height;
   late double width;
   bool animate = false;
+  final Duration animationTime = Duration(milliseconds: 1500);
+  late double fractionWidth = 5.5; // Fracción de pantalla que ocupará imagen wall-e
 
   @override
   void initState() {
     super.initState();
+    this.animate=false;
     SystemChrome.setPreferredOrientations([  // Setear orientación
       //DeviceOrientation.landscapeRight,  // Horizontales
       //DeviceOrientation.landscapeLeft,   // Horizontales
       DeviceOrientation.portraitUp,      // Vertical del reves
       //DeviceOrientation.portraitDown,    // Vertical normal
     ]);
-    //startAnimation();
   }
   
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    print("Dispose Home");
+  }
+
   Future startAnimation() async {
-    await Future.delayed(Duration(milliseconds: 5000));
+    //await Future.delayed(Duration(milliseconds: 300));
     setState(() => this.animate=true);
+  }
+  
+  //Future goToControlNav() async {
+  void goToControlNav() {
+    print("Home button pressed");
+
+    startAnimation();
+    
+    Future.delayed(
+      animationTime, // Se ejecuta luego de que termine la animación
+      () {
+        Navigator.pushNamed(
+          context,
+          '/ControlScreen'
+        );
+      }
+    );
+    
+    //Navigator.pushNamed(context, '/ControlScreen');
   }
   
   @override
@@ -61,13 +90,18 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 SizedBox(height: 12,),
                 SizedBox(height: 157,),
                 SizedBox(height: 16,),
-                BtnConnection(screenstate: ScreenState.FIRST_PAGE,),
+                BtnConnection(
+                  screenstate: ScreenState.CONNECTION_PAGE, 
+                  screenToChange: goToControlNav,
+                ),
               ],
             ),
           ),
           AnimatedPositioned(
             curve: Curves.easeInOutCubic,  // curva de animación
-            duration: Duration(milliseconds: 1500),
+            duration: animate 
+                ? animationTime
+                : Duration.zero,
             top: animate
                 ? (height - 333.76)/2 - 265/6 
                 : (height - 157)/2 - 265/6,
@@ -77,7 +111,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
             height: animate ? 333.76 : 157,
             child: AnimatedRotation(
               curve: Curves.easeInOutCubic,  // curva de animación
-              duration: Duration(milliseconds: 1500),
+              duration: animationTime,
               turns: animate ? -0.10: 0,
               child: Image.asset("assets/wall_e.png"),
             ),
@@ -85,8 +119,22 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
           Positioned(
             bottom: 6,
             right: 10,
-            width: width/5.5,
+            width: height>width
+                  ? width/fractionWidth
+                  : width/fractionWidth * (height/width),
             child: Image.asset('assets/phycom_logo.png'),
+          ),
+          AnimatedOpacity(
+            opacity: animate ? 1 : 0, 
+            curve: Curves.easeInOutBack,  // curva de animación
+            duration: animationTime,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+              child: SizedBox(
+                width: width,
+                height: height,
+              ),
+            ),
           ),
         ],
       ),

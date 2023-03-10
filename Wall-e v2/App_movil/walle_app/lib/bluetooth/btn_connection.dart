@@ -7,12 +7,12 @@ class BtnConnection extends StatefulWidget {
 
   late ScreenState screenstate;
   late Color backgroundColor;
-  //Future screenToChange;
+  VoidCallback screenToChange;
 
   BtnConnection({
     super.key,
     required this.screenstate,
-    //required this.screenToChange,
+    required this.screenToChange,
   }) {
     if (this.screenstate==ScreenState.CONTROL_PAGE) {
       backgroundColor = Colors.transparent;
@@ -71,7 +71,7 @@ class _BtnConnectionState extends State<BtnConnection> {
           : null,
 
       ),
-      onPressed: onPressed, 
+      onPressed: () => onPressed(), 
       onHover: (value) => {
         if (widget.screenstate==ScreenState.CONTROL_PAGE){
           widget.backgroundColor = value? yellow : Colors.transparent
@@ -82,6 +82,7 @@ class _BtnConnectionState extends State<BtnConnection> {
   }
 
   void onPressed() {
+    /*
     if (widget.screenstate==ScreenState.FIRST_PAGE){
       // TODO: Conectar Bluetooth
       //print("Cambio a CONTROL_PAGE");
@@ -89,8 +90,11 @@ class _BtnConnectionState extends State<BtnConnection> {
       // TODO: Desconectar Bluetooth
       //print("Cambio a FIRST_PAGE");
     }
-    //widget.screenToChange;
-    setState(() {});
+    */
+    widget.screenToChange();
+    print("Button pressed");
+    
+    //setState(() {});
   }
   
 }

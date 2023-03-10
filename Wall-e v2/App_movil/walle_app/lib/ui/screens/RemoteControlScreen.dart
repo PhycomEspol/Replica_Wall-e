@@ -7,14 +7,14 @@ import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/wall-e/wall-e.dart';
 
 
-class RemoteControl extends StatefulWidget {
-  const RemoteControl({super.key});
+class RemoteControlScreen extends StatefulWidget {
+  const RemoteControlScreen({super.key});
 
   @override
-  State<RemoteControl> createState() => _RemoteControlState();
+  State<RemoteControlScreen> createState() => _RemoteControlState();
 }
 
-class _RemoteControlState extends State<RemoteControl> {
+class _RemoteControlState extends State<RemoteControlScreen> {
   Wall_e wall_e = Wall_e();
   
   @override
@@ -26,6 +26,26 @@ class _RemoteControlState extends State<RemoteControl> {
       //DeviceOrientation.portraitUp,      // Vertical del reves
       //DeviceOrientation.portraitDown,    // Vertical normal
     ]);
+    
+  }
+
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    print("Dispose Control");
+  }
+
+  void closeConnectionNav()  {
+    print("Control button pressed");
+    
+    Future.delayed(
+      Duration(milliseconds: 500),
+      () => Navigator.pushNamedAndRemoveUntil( // Elimina lo anterior y lanza de nuevo el HomeScreen
+        context, 
+        '/HomeScreen', 
+        (Route<dynamic> route) => false
+      )
+    );
     
   }
 
@@ -44,15 +64,7 @@ class _RemoteControlState extends State<RemoteControl> {
             children: [
               BtnConnection(
                 screenstate: ScreenState.CONTROL_PAGE,
-                /*screenToChange: Future.delayed(
-                  Duration(milliseconds: 1000),
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => /*Page constructor*/
-                    )
-                  )
-                ),*/
+                screenToChange: closeConnectionNav,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

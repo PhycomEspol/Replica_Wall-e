@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   late double height;
   late double width;
   late double initialWidth;
-  final double fractionWidth = 7/12;
+  final double fractionWidth = 7/12; // Fracción de pantalla que ocupará imagen wall-e
 
   final duration = Duration(milliseconds: 1500);
   late bool animate = false;
@@ -24,28 +24,38 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([  // Setear orientación
+
+    // Setear orientación
+    SystemChrome.setPreferredOrientations([
       //DeviceOrientation.landscapeRight,  // Horizontales
       //DeviceOrientation.landscapeLeft,   // Horizontales
       DeviceOrientation.portraitUp,        // Vertical del reves
       //DeviceOrientation.portraitDown,    // Vertical normal
     ]);
+
+    // Animación Zoom-In
     startAnimation();
-    /*
-    Future.delayed(
-      Duration(milliseconds: 2000),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => /*Page constructor*/
-        )
-      )
-    );*/
+    
+    // Navigation to Home
+    goToHomeScreenNav();
+  }
+
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    print("Dispose Splash");
   }
 
   Future startAnimation() async {
     await Future.delayed(Duration(milliseconds: 200));
     setState(() => this.animate=true);
+  }
+  
+  Future goToHomeScreenNav() async {
+    await Future.delayed(
+      Duration(milliseconds: 4000),
+      () => Navigator.of(context).pushReplacementNamed('/HomeScreen')
+    );
   }
   
   @override

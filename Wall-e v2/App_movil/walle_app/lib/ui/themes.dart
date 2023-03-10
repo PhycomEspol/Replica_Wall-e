@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
-MyTheme myTheme = MyTheme();
+//MyTheme myTheme = MyTheme();
 
 //class MyTheme with ChangeNotifier{
 class MyTheme{
@@ -53,16 +53,22 @@ class MyTheme{
             fontWeight: FontWeight.bold
           )
         ),
+        caption: GoogleFonts.roboto(
+          textStyle: const TextStyle(
+            color: Colors.white, 
+            fontWeight: FontWeight.normal
+          )
+        ),
         bodyText1: GoogleFonts.roboto(
           textStyle: const TextStyle(
-            color: dark_gray_1, 
-            fontWeight: FontWeight.bold
+            color: Colors.white, 
+            fontWeight: FontWeight.normal
           )
         ),
         bodyText2: GoogleFonts.roboto(
           textStyle: const TextStyle(
-            color: dark_gray_1, 
-            fontWeight: FontWeight.bold
+            color: Colors.white, 
+            fontWeight: FontWeight.normal
           )
         ),
         button: GoogleFonts.roboto(

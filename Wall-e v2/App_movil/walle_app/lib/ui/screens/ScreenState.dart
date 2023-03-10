@@ -1,4 +1,4 @@
 enum ScreenState {
-  FIRST_PAGE, 
+  CONNECTION_PAGE, 
   CONTROL_PAGE,
 }
