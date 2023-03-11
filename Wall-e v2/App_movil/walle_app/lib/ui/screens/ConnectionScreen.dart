@@ -25,8 +25,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     super.initState();
     this.animate=false;
     SystemChrome.setPreferredOrientations([  // Setear orientación
-      //DeviceOrientation.landscapeRight,  // Horizontales
-      //DeviceOrientation.landscapeLeft,   // Horizontales
+      DeviceOrientation.landscapeRight,  // Horizontales
+      DeviceOrientation.landscapeLeft,   // Horizontales
       DeviceOrientation.portraitUp,      // Vertical del reves
       //DeviceOrientation.portraitDown,    // Vertical normal
     ]);

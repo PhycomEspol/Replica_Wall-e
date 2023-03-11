@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   late double initialWidth;
   final double fractionWidth = 7/12; // Fracción de pantalla que ocupará imagen wall-e
 
-  final duration = Duration(milliseconds: 1500);
+  final animateTime = Duration(milliseconds: 1000);
   late bool animate = false;
 
   @override
@@ -27,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Setear orientación
     SystemChrome.setPreferredOrientations([
-      //DeviceOrientation.landscapeRight,  // Horizontales
-      //DeviceOrientation.landscapeLeft,   // Horizontales
+      DeviceOrientation.landscapeRight,  // Horizontales
+      DeviceOrientation.landscapeLeft,   // Horizontales
       DeviceOrientation.portraitUp,        // Vertical del reves
       //DeviceOrientation.portraitDown,    // Vertical normal
     ]);
@@ -47,13 +49,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future startAnimation() async {
-    await Future.delayed(Duration(milliseconds: 200));
+    //await Future.delayed(Duration(milliseconds: 200));
     setState(() => this.animate=true);
   }
   
   Future goToHomeScreenNav() async {
     await Future.delayed(
-      Duration(milliseconds: 4000),
+      Duration(milliseconds: 3000),
       () => Navigator.of(context).pushReplacementNamed('/HomeScreen')
     );
   }
@@ -73,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
           AnimatedPositioned(
             // Animación
             curve: Curves.easeInOutCubic,  // curva de animación
-            duration: duration,
+            duration: animateTime,
             // Posición
             top: animate
                 ? (height - width*fractionWidth)/2 //centrado verticalmente
@@ -88,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // elemento
             child: AnimatedOpacity(
               curve: Curves.easeInOutCubic,  // curva de animación
-              duration: duration,
+              duration: animateTime,
               opacity: animate ? 1 : 0,
               child: Image.asset('assets/phycom_logo.png'),
             ),
@@ -98,27 +100,32 @@ class _SplashScreenState extends State<SplashScreen> {
                     - height/5,     // desplazamiento para abajo
             left: (width - (width*fractionWidth - 60))/2, // centramos
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 6,
-                    width: width*fractionWidth - 60,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      child: LinearProgressIndicator(
-                        backgroundColor: Colors.white,
-                        color: sky_blue,
+              child: defaultTargetPlatform == TargetPlatform.iOS // for iOS
+                    ? CupertinoActivityIndicator(
+                      color: Colors.white,
+                      radius: 30,
+                    )
+                    : Column(                                    // for Android
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 6,
+                            width: width*fractionWidth - 60,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(4)),
+                              child: LinearProgressIndicator(
+                                backgroundColor: Colors.white,
+                                color: sky_blue,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Cargando...",
+                            style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Cargando...",
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
-                  ),
-                ],
-              ),
             ),
           ),
         ],

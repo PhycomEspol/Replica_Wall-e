@@ -32,7 +32,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -50,7 +49,14 @@ dependencies:
   # https://raw.githubusercontent.com/material-foundation/flutter-packages/main/packages/google_fonts/lib/google_fonts.dart
   #Bluetooth
   flutter_bluetooth_serial: ^0.4.0
+  # For show SplashScreen
+  flutter_native_splash: ^2.2.19
 
+flutter_native_splash:
+  color: "#0C2035"
+  color_dark: "#0C2035"
+  android: true
+  ios: true
 
 dev_dependencies:
   flutter_test:
