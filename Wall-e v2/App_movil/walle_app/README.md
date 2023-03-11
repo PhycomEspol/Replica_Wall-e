@@ -93,7 +93,13 @@ https://github.com/husamhamu/mm_app/blob/master/lib/connection.dart
 
 
 ## Routes and Navigations
+
 Routes: 
 https://vignesh-prakash.medium.com/flutter-splash-screen-84fb0307ac55
 Navegation:
 https://medium.com/comunidad-flutter/flutter-push-pop-push-f76795b8bc07
+
+# Splash Screen configuration
+
+https://www.youtube.com/watch?v=ySaVFCpK4M8&ab_channel=FlutterUIDev
+https://pub.dev/packages/flutter_native_splash
