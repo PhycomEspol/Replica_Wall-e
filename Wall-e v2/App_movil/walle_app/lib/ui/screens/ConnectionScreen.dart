@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:walle_app/bluetooth/btn_connection.dart';
+import 'package:walle_app/routes.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 
 class ConnectionScreen extends StatefulWidget {
@@ -48,20 +50,23 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     print("Home button pressed");
 
     startAnimation();
-    
+
+    print("Screen name Before in home");
+    print(ModalRoute.of(context)?.settings.name);
     Future.delayed(
       animationTime, // Se ejecuta luego de que termine la animación
       () {
-        Navigator.pushNamed(
-          context,
-          '/ControlScreen'
+        Navigator.of(context).pushNamed(
+          MyRouter.controlPath
         );
+        print("Screen name After in home");
+        print(ModalRoute.of(context)?.settings.name);
       }
     );
     
     //Navigator.pushNamed(context, '/ControlScreen');
   }
-  
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;

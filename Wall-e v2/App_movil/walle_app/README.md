@@ -98,6 +98,9 @@ Routes:
 https://vignesh-prakash.medium.com/flutter-splash-screen-84fb0307ac55
 Navegation:
 https://medium.com/comunidad-flutter/flutter-push-pop-push-f76795b8bc07
+Go router:
+https://www.youtube.com/watch?v=b6Z885Z46cU&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=1&ab_channel=Flutter
+
 
 # Splash Screen configuration
 

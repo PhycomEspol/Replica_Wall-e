@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:walle_app/routes.dart';
 
 import 'package:walle_app/ui/themes.dart';
 
@@ -14,19 +15,19 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   
-  // Root of our application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    /*return MaterialApp.router(
+      title: 'Wall-e App',
       theme: MyTheme.controlScreenTheme,
-      initialRoute: '/Splash',
-      //home: SplashScreen(),
-      routes: <String, WidgetBuilder>{
-        '/Splash': (context) => SplashScreen(),
-        '/HomeScreen': (context) => ConnectionScreen(),
-        '/ControlScreen': (context) => RemoteControlScreen(),
-      },
+      routeInformationParser: Router.generateRoute().routeInformationParser,
+      routerDelegate: Router.generateRoute().routerDelegate,
+    );*/
+    return MaterialApp(
+      title: 'Wall-e App',
+      theme: MyTheme.controlScreenTheme,
+      initialRoute: MyRouter.splashPath,
+      onGenerateRoute: MyRouter.generateRoute,
     );
   }
 }

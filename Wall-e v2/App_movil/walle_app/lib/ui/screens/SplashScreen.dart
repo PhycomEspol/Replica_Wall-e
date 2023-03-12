@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:walle_app/routes.dart';
 
 import '../colors.dart';
 
@@ -54,9 +56,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   
   Future goToHomeScreenNav() async {
+    //print("Before in splash");
+    //print(ModalRoute.of(context)?.settings.name);
     await Future.delayed(
       Duration(milliseconds: 3000),
-      () => Navigator.of(context).pushReplacementNamed('/HomeScreen')
+      () {
+        Navigator.of(context).pushReplacementNamed(
+          MyRouter.homePath,
+          //arguments: , // TODO: Pass transitionBuilding function as argument
+        );
+        print("Screen name After in splash");
+        print(ModalRoute.of(context)?.settings.name);
+      }
     );
   }
   

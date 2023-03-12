@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:walle_app/arm/arm_slide.dart';
 import 'package:walle_app/bluetooth/btn_connection.dart';
 import 'package:walle_app/body/joystick.dart';
+import 'package:walle_app/routes.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/wall-e/wall-e.dart';
 
@@ -38,15 +39,19 @@ class _RemoteControlState extends State<RemoteControlScreen> {
   void closeConnectionNav()  {
     print("Control button pressed");
     
+    print("Screen name Before in control");
+    print(ModalRoute.of(context)?.settings.name);
     Future.delayed(
       Duration(milliseconds: 500),
-      () => Navigator.pushNamedAndRemoveUntil( // Elimina lo anterior y lanza de nuevo el HomeScreen
-        context, 
-        '/HomeScreen', 
-        (Route<dynamic> route) => false
-      )
+      () {
+        Navigator.of(context).pushNamedAndRemoveUntil( // Elimina lo anterior y lanza de nuevo el HomeScreen
+          MyRouter.homePath, 
+          (Route<dynamic> route) => false
+        );
+        print("Screen name After in control");
+        print(ModalRoute.of(context)?.settings.name);
+      }
     );
-    
   }
 
   @override
