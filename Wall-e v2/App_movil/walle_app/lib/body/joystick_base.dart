@@ -61,6 +61,13 @@ class _CustomBaseBaseState extends State<CustomBase>{
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    this.timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
