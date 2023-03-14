@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:walle_app/bluetooth/btn_connection.dart';
+import 'package:walle_app/main.dart';
 import 'package:walle_app/routes.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 
@@ -12,9 +13,20 @@ class ConnectionScreen extends StatefulWidget {
 
   @override
   State<ConnectionScreen> createState() => _ConnectionScreenState();
+
+  static Future<void> setOrientation() async {
+    if (rotateAutomaticly) {
+      SystemChrome.setPreferredOrientations([  // Setear orientación
+        //DeviceOrientation.portraitUp,      // Vertical del reves
+        DeviceOrientation.portraitDown,    // Vertical normal
+        DeviceOrientation.landscapeRight,  // Horizontales
+        DeviceOrientation.landscapeLeft,   // Horizontales
+      ]);
+    }
+  }
 }
 
-class _ConnectionScreenState extends State<ConnectionScreen> {
+class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
 
   late double height;
   late double width;
@@ -26,14 +38,28 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   void initState() {
     super.initState();
     this.animate=false;
-    SystemChrome.setPreferredOrientations([  // Setear orientación
-      DeviceOrientation.landscapeRight,  // Horizontales
-      DeviceOrientation.landscapeLeft,   // Horizontales
-      DeviceOrientation.portraitUp,      // Vertical del reves
-      //DeviceOrientation.portraitDown,    // Vertical normal
-    ]);
   }
   
+  // ---------------------------- Route Observer ----------------------------
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+  
+  @override
+  void didPop() {
+    final route = ModalRoute.of(context)?.settings.name;
+    print('\ndidPop in Connection route: $route');
+  }
+
+  @override
+  void didPush() {
+    final route = ModalRoute.of(context)?.settings.name;
+    print('\ndidPush Connection route: $route');
+  }
+  // ------------------------------------------------------------------------
+
   @override
   Future<void> dispose() async {
     super.dispose();
@@ -45,7 +71,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     setState(() => this.animate=true);
   }
   
-  //Future goToControlNav() async {
   void goToControlNav() {
     print("Home button pressed");
 
@@ -53,18 +78,18 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
 
     print("Screen name Before in home");
     print(ModalRoute.of(context)?.settings.name);
+    print(Navigator.of(context));
     Future.delayed(
       animationTime, // Se ejecuta luego de que termine la animación
       () {
         Navigator.of(context).pushNamed(
           MyRouter.controlPath
         );
+        this.animate=false;
         print("Screen name After in home");
         print(ModalRoute.of(context)?.settings.name);
       }
     );
-    
-    //Navigator.pushNamed(context, '/ControlScreen');
   }
 
   @override

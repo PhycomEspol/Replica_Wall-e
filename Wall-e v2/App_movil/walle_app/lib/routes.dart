@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walle_app/ui/screens/ErrorPage.dart';
 import 'package:walle_app/ui/screens/SplashScreen.dart';
@@ -70,6 +71,7 @@ class MyRouter {
           },*/
         );
       case MyRouter.homePath:
+        ConnectionScreen.setOrientation();
         return PageRouteBuilder(
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => ConnectionScreen(),
@@ -78,6 +80,7 @@ class MyRouter {
           },
         );
       case MyRouter.controlPath:
+        RemoteControlScreen.setOrientation();
         return PageRouteBuilder(
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RemoteControlScreen(),

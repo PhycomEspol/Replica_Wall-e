@@ -8,6 +8,10 @@ import 'package:walle_app/ui/screens/SplashScreen.dart';
 import 'package:walle_app/ui/screens/ConnectionScreen.dart';
 import 'package:walle_app/ui/screens/RemoteControlScreen.dart';
 
+
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+final bool rotateAutomaticly = true;
+
 void main() {
   runApp(MyApp());
 }
@@ -17,17 +21,12 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    /*return MaterialApp.router(
-      title: 'Wall-e App',
-      theme: MyTheme.controlScreenTheme,
-      routeInformationParser: Router.generateRoute().routeInformationParser,
-      routerDelegate: Router.generateRoute().routerDelegate,
-    );*/
     return MaterialApp(
       title: 'Wall-e App',
       theme: MyTheme.controlScreenTheme,
       initialRoute: MyRouter.splashPath,
       onGenerateRoute: MyRouter.generateRoute,
+      navigatorObservers: [routeObserver],
     );
   }
 }
