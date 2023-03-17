@@ -96,29 +96,36 @@ https://github.com/husamhamu/mm_app/blob/master/lib/connection.dart
 
 Routes: 
 https://vignesh-prakash.medium.com/flutter-splash-screen-84fb0307ac55
+
 Route Observer
 https://api.flutter.dev/flutter/widgets/RouteObserver-class.html
 https://medium.flutterdevs.com/tracking-screen-transition-by-route-observer-flutter-dadd8773699c
 https://stackoverflow.com/questions/70116389/flutter-how-to-listen-for-navigation-event
+
 Navegation:
 https://medium.com/comunidad-flutter/flutter-push-pop-push-f76795b8bc07
 https://stackoverflow.com/questions/59816770/what-is-the-difference-between-pushreplacementnamed-and-popandpushnamed-in-flutt
+
 Go router:
 https://www.youtube.com/watch?v=b6Z885Z46cU&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=1&ab_channel=Flutter
 https://www.youtube.com/watch?v=QwlrHjBYQ2M&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=3&ab_channel=AkshitMadan
+
 With no Library:
 https://www.youtube.com/watch?v=nyvwx7o277U&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=3&ab_channel=ResoCoder
+
 Back Button intercept
 https://www.youtube.com/watch?v=0NEouCrA2z8&t=60s
 https://api.flutter.dev/flutter/widgets/WillPopScope-class.html
+
 Custom Alert Dialog
 https://www.youtube.com/watch?v=EdaX8X_r9HM&ab_channel=MohitAgrawal
+
 Animación de Transición
 https://stackoverflow.com/questions/52342299/how-to-pop-with-animation-in-flutter
 
 
 
-# Splash Screen configuration
+## Splash Screen configuration
 
 https://www.youtube.com/watch?v=ySaVFCpK4M8&ab_channel=FlutterUIDev
 https://pub.dev/packages/flutter_native_splash

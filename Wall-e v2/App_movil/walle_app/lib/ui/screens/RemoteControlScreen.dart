@@ -5,6 +5,8 @@ import 'package:walle_app/bluetooth/btn_connection.dart';
 import 'package:walle_app/body/joystick.dart';
 import 'package:walle_app/main.dart';
 import 'package:walle_app/routes.dart';
+import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/ui/components/alerts.dart';
 import 'package:walle_app/ui/screens/ConnectionScreen.dart';
 import 'package:walle_app/ui/screens/ScreenState.dart';
 import 'package:walle_app/wall-e/wall-e.dart';
@@ -19,8 +21,8 @@ class RemoteControlScreen extends StatefulWidget {
   static void setOrientation() async {
     if (rotateAutomaticly) {
       SystemChrome.setPreferredOrientations([  // Setear orientación
-        //DeviceOrientation.portraitUp,      // Vertical del reves
-        //DeviceOrientation.portraitDown,    // Vertical normal
+        //DeviceOrientation.portraitUp,      // Vertical normal
+        //DeviceOrientation.portraitDown,    // Vertical del reves
         DeviceOrientation.landscapeRight,  // Horizontales
         DeviceOrientation.landscapeLeft,   // Horizontales
       ]);
@@ -93,19 +95,11 @@ class _RemoteControlState extends State<RemoteControlScreen> with RouteAware{
         final selectedValue = await showDialog<bool>(
           context: context, 
           builder:(context) {
-            return AlertDialog(
-              title: const Text("Desconectar"),
-              content: const Text("¿Deseas desconectarte?"),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(false), 
-                  child: const Text("No"),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(true), 
-                  child: const Text("Salir"),
-                ),
-              ],
+            return CustomAlert(
+              circleIcon: Icons.bluetooth_disabled_rounded,
+              title: "Desconectar",
+              content: "¿Deseas abandonar el control del \nWall-e?",
+              textButton: "Sí",
             );
           },
         );

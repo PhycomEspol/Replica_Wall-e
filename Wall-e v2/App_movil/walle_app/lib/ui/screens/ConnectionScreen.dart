@@ -17,8 +17,8 @@ class ConnectionScreen extends StatefulWidget {
   static Future<void> setOrientation() async {
     if (rotateAutomaticly) {
       SystemChrome.setPreferredOrientations([  // Setear orientación
-        //DeviceOrientation.portraitUp,      // Vertical del reves
-        DeviceOrientation.portraitDown,    // Vertical normal
+        DeviceOrientation.portraitUp,      // Vertical normal
+        //DeviceOrientation.portraitDown,    // Vertical del reves
         DeviceOrientation.landscapeRight,  // Horizontales
         DeviceOrientation.landscapeLeft,   // Horizontales
       ]);
@@ -85,7 +85,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
         Navigator.of(context).pushNamed(
           MyRouter.controlPath
         );
-        this.animate=false;
+        setState(() => this.animate=false);
         print("Screen name After in home");
         print(ModalRoute.of(context)?.settings.name);
       }
