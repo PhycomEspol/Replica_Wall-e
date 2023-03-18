@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:walle_app/ui/screens/ScreenState.dart';
+import 'package:walle_app/screens/ScreenState.dart';
 
-import '../ui/colors.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
 
 class BtnConnection extends StatefulWidget {
 

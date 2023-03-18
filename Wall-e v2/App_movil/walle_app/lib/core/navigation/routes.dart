@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-import 'package:walle_app/ui/screens/ErrorPage.dart';
-import 'package:walle_app/ui/screens/SplashScreen.dart';
-import 'package:walle_app/ui/screens/ConnectionScreen.dart';
-import 'package:walle_app/ui/screens/RemoteControlScreen.dart';
+//import 'package:go_router/go_router.dart';
+import 'package:walle_app/screens/ErrorPage.dart';
+import 'package:walle_app/screens/SplashScreen.dart';
+import 'package:walle_app/screens/ConnectionScreen.dart';
+import 'package:walle_app/screens/RemoteControlScreen.dart';
 
 /*
 class Router {

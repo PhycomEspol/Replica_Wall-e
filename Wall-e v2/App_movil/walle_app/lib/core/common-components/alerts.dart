@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
 
 class CustomAlert extends StatelessWidget {
   double width;
@@ -29,7 +29,7 @@ class CustomAlert extends StatelessWidget {
   //final VoidCallback? onPressedClose;
 
   CustomAlert({
-    ///this.onPressedButton,  // Functions
+    //this.onPressedButton,  // Functions
     //this.onPressedClose,
     this.width = 280.0,                        // Alert characteristics
     this.height = 200.0,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walle_app/ui/colors.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
 
 
 class CustomStick extends StatelessWidget {

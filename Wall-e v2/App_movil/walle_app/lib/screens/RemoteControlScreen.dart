@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:walle_app/arm/arm_slide.dart';
-import 'package:walle_app/bluetooth/btn_connection.dart';
-import 'package:walle_app/body/joystick.dart';
+import 'package:walle_app/core/app_assets.dart';
+
+import 'package:walle_app/features/wall-e/arm/presentation/arm_slider.dart';
+import 'package:walle_app/features/connection/presentation/btn_connection.dart';
+import 'package:walle_app/features/wall-e/mobility/presentation/joystick.dart';
+import 'package:walle_app/features/wall-e/wall-e.dart';
 import 'package:walle_app/main.dart';
-import 'package:walle_app/routes.dart';
-import 'package:walle_app/ui/colors.dart';
-import 'package:walle_app/ui/components/alerts.dart';
-import 'package:walle_app/ui/screens/ConnectionScreen.dart';
-import 'package:walle_app/ui/screens/ScreenState.dart';
-import 'package:walle_app/wall-e/wall-e.dart';
+import 'package:walle_app/core/navigation/routes.dart';
+import 'package:walle_app/core/common-components/alerts.dart';
+import 'package:walle_app/screens/ConnectionScreen.dart';
+import 'package:walle_app/screens/ScreenState.dart';
 
 
 class RemoteControlScreen extends StatefulWidget {
@@ -173,7 +174,7 @@ class _RemoteControlState extends State<RemoteControlScreen> with RouteAware{
               bottom: 0,
               right: 8,
               width: MediaQuery.of(context).size.height/5.5,
-              child: Image.asset('assets/phycom_logo.png'),
+              child: Image.asset(AppAssets.imgPHYCOM),
             ),
           ],
         ),

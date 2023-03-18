@@ -1,19 +1,19 @@
-import '../body/walle_body.dart';
-import '../arm/arm.dart';
+import 'package:walle_app/features/wall-e/arm/domain/arm.dart';
+import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
 
 class Wall_e{
   late Arm _rightArm;
   late Arm _leftArm;
-  late Body _body;
+  late Mobility _mobility;
 
   Arm get leftArm => _leftArm;
   Arm get rightArm => _rightArm;
-  Body get body => _body;
+  Mobility get mobility => _mobility;
 
   Wall_e() {
     this._leftArm = Arm(ArmType.LEFT);
     this._rightArm = Arm(ArmType.RIGHT);
-    this._body = Body();
+    this._mobility = Mobility();
   }
 
   void sendMessage(){

@@ -1,12 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
+import 'package:walle_app/core/app_assets.dart';
+//import 'package:go_router/go_router.dart';
 
-import 'package:walle_app/bluetooth/btn_connection.dart';
+import 'package:walle_app/features/connection/presentation/btn_connection.dart';
 import 'package:walle_app/main.dart';
-import 'package:walle_app/routes.dart';
-import 'package:walle_app/ui/screens/ScreenState.dart';
+import 'package:walle_app/core/navigation/routes.dart';
+import 'package:walle_app/screens/ScreenState.dart';
 
 class ConnectionScreen extends StatefulWidget {
   const ConnectionScreen({super.key});
@@ -143,7 +144,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
               curve: Curves.easeInOutCubic,  // curva de animación
               duration: animationTime,
               turns: animate ? -0.10: 0,
-              child: Image.asset("assets/wall_e.png"),
+              child: Image.asset(AppAssets.imgWALL_E),
             ),
           ),
           Positioned(
@@ -152,7 +153,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
             width: height>width
                   ? width/fractionWidth
                   : width/fractionWidth * (height/width),
-            child: Image.asset('assets/phycom_logo.png'),
+            child: Image.asset(AppAssets.imgPHYCOM),
           ),
           AnimatedOpacity(
             opacity: animate ? 1 : 0, 

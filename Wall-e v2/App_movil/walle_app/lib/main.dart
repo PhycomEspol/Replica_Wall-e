@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:walle_app/routes.dart';
+import 'package:walle_app/core/navigation/routes.dart';
 
-import 'package:walle_app/ui/themes.dart';
-
-import 'package:walle_app/ui/screens/SplashScreen.dart';
-import 'package:walle_app/ui/screens/ConnectionScreen.dart';
-import 'package:walle_app/ui/screens/RemoteControlScreen.dart';
+import 'package:walle_app/core/ui-system/themes.dart';
 
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();

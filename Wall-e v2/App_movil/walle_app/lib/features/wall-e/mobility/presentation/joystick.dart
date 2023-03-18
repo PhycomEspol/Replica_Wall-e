@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'joystick_base.dart';
 import 'joystick_stick.dart';
-import 'walle_body.dart';
+import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
 
 class MyJoystick extends StatefulWidget {
   
@@ -58,25 +58,25 @@ class _MyJoystickState extends State<MyJoystick> {
         if(_x!=_xBefore || _y!=_yBefore){ // Cuando presenta cambios de posición
           print("Posición -> \n\tx: "+_x.toString()+"\n\ty: "+_y.toString());
 
-          print("isStickPressed: ${Body.isStickPressed}");
-          Body.theta = atan(_y/_x)*(180/pi);
-          if(Body.theta<0){
-            Body.theta += 180;
+          print("isStickPressed: ${Mobility.isStickPressed}");
+          Mobility.theta = atan(_y/_x)*(180/pi);
+          if(Mobility.theta<0){
+            Mobility.theta += 180;
           }
           if(_y<0){
-            Body.theta += 180;
+            Mobility.theta += 180;
           }
           if(_y==0 && _x!=0){
-            Body.theta = _x>0 ? 0 : 180;
+            Mobility.theta = _x>0 ? 0 : 180;
           }
-          print("Theta: ${Body.theta}");
+          print("Theta: ${Mobility.theta}");
         }
       },
       onStickDragStart: () {
-        Body.isStickPressed = true;
+        Mobility.isStickPressed = true;
       },
       onStickDragEnd: () {
-        Body.isStickPressed = false;
+        Mobility.isStickPressed = false;
       },
     );
   }

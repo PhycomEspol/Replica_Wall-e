@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-import 'package:walle_app/ui/colors.dart';
 import 'dart:async';
 
-import 'walle_body.dart';
 import 'animated_border.dart';
+import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
 
 late double radiusBase;
 
@@ -45,17 +42,17 @@ class _CustomBaseBaseState extends State<CustomBase>{
     print("${particles.length}");
     // se actualiza a una frecuencia de 60Hz, frecuencia de visión humana
     this.timer = Timer.periodic(Duration(milliseconds: 1000 ~/ 60), (timer) {
-      //if(Body.isStickPressed){
+      //if(Mobility.isStickPressed){
         setState(() {
           this.particles.forEach((p) {
-            if(memoryPress==true && Body.isStickPressed==false){
+            if(memoryPress==true && Mobility.isStickPressed==false){
               p.opacity = randomRange(0.85, 1.0);
             }
             p.Update();
           });
         });
       //}
-      memoryPress = Body.isStickPressed;
+      memoryPress = Mobility.isStickPressed;
       setState(() {});
     });
   }

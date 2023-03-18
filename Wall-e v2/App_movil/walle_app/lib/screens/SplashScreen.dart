@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-import 'package:walle_app/routes.dart';
+import 'package:walle_app/core/app_assets.dart';
+//import 'package:go_router/go_router.dart';
+import 'package:walle_app/core/navigation/routes.dart';
 
-import '../colors.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -103,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
               curve: Curves.easeInOutCubic,  // curva de animación
               duration: animateTime,
               opacity: animate ? 1 : 0,
-              child: Image.asset('assets/phycom_logo.png'),
+              child: Image.asset(AppAssets.imgPHYCOM),
             ),
           ),
           Positioned(

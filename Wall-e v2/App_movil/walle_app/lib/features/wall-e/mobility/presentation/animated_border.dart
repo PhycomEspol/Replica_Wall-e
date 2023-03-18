@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:walle_app/ui/colors.dart';
 import 'dart:math';
-import 'dart:async';
 
-import 'walle_body.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
+import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
 
 
 late double radialSize;
@@ -27,7 +26,7 @@ class ParticlesDrawer {
   );
   
   void drawParticles(Canvas canvas, Offset c){
-    //if(Body.isStickPressed){
+    //if(Mobility.isStickPressed){
       this.particles.forEach((p) {
         final cc = polarToCartesian(p.orbit, p.theta);
         final paint = Paint()..color = p.color.withOpacity(p.opacity);
@@ -68,23 +67,23 @@ class Particle {
   late double _minAngle;
 
   void Update(){ // TODO: modificar considerando el ángulo en el que se envuentra el joystick
-    this.color = Body.isStickPressed
+    this.color = Mobility.isStickPressed
       ? Colors.white
       : light_gray_1;
     
-    this.orbit += Body.isStickPressed 
+    this.orbit += Mobility.isStickPressed 
       ? 0.3 
       : 0.1;
-    this.opacity -= Body.isStickPressed
+    this.opacity -= Mobility.isStickPressed
       ? 0.005
       : 0.005; // Entre menor es, más radio alcanza
 
-    if(Body.isStickPressed){
+    if(Mobility.isStickPressed){
       // Definir límites del rango de ángulos donde los puntos serán visibles
       _thetaCorrected = -(this.theta*(180/pi) - 360);
 
-      _maxAngle = Body.theta+this.thetaRange/2;
-      _minAngle = Body.theta-this.thetaRange/2;
+      _maxAngle = Mobility.theta+this.thetaRange/2;
+      _minAngle = Mobility.theta-this.thetaRange/2;
 
       if(_maxAngle>360){_maxAngle-=360;}
       else if(_maxAngle==360){_maxAngle=360;}
@@ -119,7 +118,7 @@ class Particle {
     // 
     if(this.opacity <= 0.0){
       this.orbit = this.originalOrbit;
-      this.opacity = Body.isStickPressed
+      this.opacity = Mobility.isStickPressed
         ? randomRange(0.1, 1.0)
         : randomRange(0.85, 1.0); // Da efecto de latido
     }

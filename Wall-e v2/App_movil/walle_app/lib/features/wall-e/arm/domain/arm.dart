@@ -1,4 +1,6 @@
 
+import 'package:walle_app/core/app_assets.dart';
+
 enum ArmType { LEFT, RIGHT }
 
 class Arm{
@@ -17,10 +19,10 @@ class Arm{
     this._maxPosition = 180;
     this._armType = armType;
     if(armType==ArmType.LEFT){
-      this._assetName = "assets/BRAZO_IZQ.svg";
+      this._assetName = AppAssets.svgLEFT_ARM;
       //this._assetName = "assets/BRAZO_IZQ.png";
     }else if(armType==ArmType.RIGHT){
-      this._assetName = "assets/BRAZO_DER.svg";
+      this._assetName = AppAssets.svgRIGHT_ARM;
       //this._assetName = "assets/BRAZO_DER.png";
     }
   }

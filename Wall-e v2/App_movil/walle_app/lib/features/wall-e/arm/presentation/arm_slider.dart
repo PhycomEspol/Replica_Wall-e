@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:walle_app/ui/colors.dart';
-import 'arm.dart';
+import 'package:walle_app/core/ui-system/colors.dart';
+import 'package:walle_app/features/wall-e/arm/domain/arm.dart';
+
+
 
 class ArmSlide extends StatefulWidget {
   late Arm arm;

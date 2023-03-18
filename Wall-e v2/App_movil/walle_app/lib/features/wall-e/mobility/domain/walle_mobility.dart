@@ -1,4 +1,4 @@
-class Body{
+class Mobility{
   int velocityLeft = 0;
   int velocityRight = 0;
 
@@ -6,7 +6,7 @@ class Body{
   int Y_position = 0;
 
   static double theta = 90;
-
+  
   static bool isStickPressed = false;
   
 
