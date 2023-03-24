@@ -10,14 +10,25 @@ class Wall_e{
   Arm get rightArm => _rightArm;
   Mobility get mobility => _mobility;
 
-  Wall_e() {
+  Wall_e(); // Constructor
+
+  void initState(){
     this._leftArm = Arm(ArmType.LEFT);
     this._rightArm = Arm(ArmType.RIGHT);
     this._mobility = Mobility();
   }
 
-  void sendMessage(){
+  String toString(){
+    // ejemplo: "{'rightMotor':255, 'leftMotor':255, 'rightArm':80, 'leftarm':100}"
+    return "{'rightMotor':${this._mobility.velocityRight}, "
+          +"'leftMotor':${this._mobility.velocityLeft}, "
+          +"'rightArm':${this._rightArm.actualPosition}, "
+          +"'leftarm':${this._leftArm.actualPosition}}";
+  }
 
+  void sendMessage(){
+    print(this.toString());
+    // TODO: Envio de mensaje por Bluetooth
   }
 
 }

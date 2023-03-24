@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:walle_app/core/app_assets.dart';
+import 'package:walle_app/core/config.dart';
 
 import 'package:walle_app/features/wall-e/arm/presentation/arm_slider.dart';
 import 'package:walle_app/features/connection/presentation/btn_connection.dart';
 import 'package:walle_app/features/wall-e/mobility/presentation/joystick.dart';
-import 'package:walle_app/features/wall-e/wall-e.dart';
 import 'package:walle_app/main.dart';
 import 'package:walle_app/core/navigation/routes.dart';
 import 'package:walle_app/core/common-components/alerts.dart';
@@ -33,11 +33,12 @@ class RemoteControlScreen extends StatefulWidget {
 }
 
 class _RemoteControlState extends State<RemoteControlScreen> with RouteAware{
-  Wall_e wall_e = Wall_e();
+  //wall_e = Wall_e();
   
   @override
   void initState() {
     super.initState();
+    wall_e.initState();
   }
 
   // ---------------------------- Route Observer ----------------------------

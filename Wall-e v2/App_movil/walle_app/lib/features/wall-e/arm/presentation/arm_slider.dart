@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:walle_app/core/config.dart';
 
 import 'package:walle_app/core/ui-system/colors.dart';
 import 'package:walle_app/features/wall-e/arm/domain/arm.dart';
@@ -144,6 +145,7 @@ class _ArmSlideState extends State<ArmSlide> {
             setState(() {
               _value = newValue;
               this.arm.setPosition(_value);
+              wall_e.sendMessage();
             });
           },
         ),

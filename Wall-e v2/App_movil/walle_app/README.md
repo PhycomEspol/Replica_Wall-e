@@ -16,6 +16,13 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 --------------------------------------------
+## Folder Structure
+
+https://codewithandrea.com/articles/flutter-project-structure/
+
+https://medium.com/flutter-community/scalable-folder-structure-for-flutter-applications-183746bdc320
+
+
 ## Slider
 
 Cómo exportar las imagenes svg desde Illustrator?
@@ -35,21 +42,27 @@ First answer (hay lineas que se modificaron). Importante para llamarlos para cre
 https://stackoverflow.com/questions/63205796/flutter-how-to-convert-an-svg-file-to-bitmap
 
 
-Sliders repos
+**Sliders repos**
 
 El que usamos:
+
 https://github.com/syncfusion/flutter-widgets/tree/master/packages/syncfusion_flutter_sliders
 https://pub.dev/packages/syncfusion_flutter_sliders
 https://pub.dev/packages/syncfusion_flutter_core
+
 Inspiración para el custom thumb
+
 https://help.syncfusion.com/flutter/slider/shapes#thumb-shape
 https://github.com/MohammadRijwan/custom_slider/blob/master/lib/custom_slider.dart#L66
 https://www.youtube.com/watch?v=VLeH_JeIIKs&ab_channel=RidzCreations
 
 
 El de Material io:
+
 https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/slider.dart
+
 Inspiración para el custom thumb
+
 https://github.com/MohammadRijwan/custom_slider/blob/master/lib/custom_slider.dart#L66
 https://www.youtube.com/watch?v=VLeH_JeIIKs&ab_channel=RidzCreations
 
@@ -66,9 +79,11 @@ https://pub.dev/packages/flutter_joystick
 https://github.com/pavelzaichyk/flutter_joystick/blob/master/lib/src/joystick.dart
 
 Calculadora de posición del jouystick
+
 https://github.com/pavelzaichyk/flutter_joystick/blob/master/lib/src/joystick_stick_offset_calculator.dart
 
 Background animado sacado de: 
+
 https://www.youtube.com/watch?v=0dL3fON-q90&ab_channel=CodingwithIndy
 
 
@@ -98,26 +113,32 @@ Routes:
 https://vignesh-prakash.medium.com/flutter-splash-screen-84fb0307ac55
 
 Route Observer
+
 https://api.flutter.dev/flutter/widgets/RouteObserver-class.html
 https://medium.flutterdevs.com/tracking-screen-transition-by-route-observer-flutter-dadd8773699c
 https://stackoverflow.com/questions/70116389/flutter-how-to-listen-for-navigation-event
 
 Navegation:
+
 https://medium.com/comunidad-flutter/flutter-push-pop-push-f76795b8bc07
 https://stackoverflow.com/questions/59816770/what-is-the-difference-between-pushreplacementnamed-and-popandpushnamed-in-flutt
 
 Go router:
+
 https://www.youtube.com/watch?v=b6Z885Z46cU&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=1&ab_channel=Flutter
 https://www.youtube.com/watch?v=QwlrHjBYQ2M&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=3&ab_channel=AkshitMadan
 
 With no Library:
+
 https://www.youtube.com/watch?v=nyvwx7o277U&list=TLPQMTEwMzIwMjOFhUYHHA7HAg&index=3&ab_channel=ResoCoder
 
 Back Button intercept
+
 https://www.youtube.com/watch?v=0NEouCrA2z8&t=60s
 https://api.flutter.dev/flutter/widgets/WillPopScope-class.html
 
 Custom Alert Dialog
+
 https://www.youtube.com/watch?v=EdaX8X_r9HM&ab_channel=MohitAgrawal
 
 Animación de Transición
@@ -129,3 +150,11 @@ https://stackoverflow.com/questions/52342299/how-to-pop-with-animation-in-flutte
 
 https://www.youtube.com/watch?v=ySaVFCpK4M8&ab_channel=FlutterUIDev
 https://pub.dev/packages/flutter_native_splash
+
+
+# Math Array Package
+
+https://pub.dev/documentation/scidart/latest/numdart/numdart-library.html
+https://pub.dev/packages/scidart/install
+https://github.com/scidart/scidart/tree/master/lib/src/numdart
+

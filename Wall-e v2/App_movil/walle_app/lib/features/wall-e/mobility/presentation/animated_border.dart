@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:walle_app/core/config.dart';
 import 'dart:math';
 
 import 'package:walle_app/core/ui-system/colors.dart';
@@ -82,8 +83,8 @@ class Particle {
       // Definir límites del rango de ángulos donde los puntos serán visibles
       _thetaCorrected = -(this.theta*(180/pi) - 360);
 
-      _maxAngle = Mobility.theta+this.thetaRange/2;
-      _minAngle = Mobility.theta-this.thetaRange/2;
+      _maxAngle = wall_e.mobility.theta+this.thetaRange/2; // theta extraido desde el domain
+      _minAngle = wall_e.mobility.theta-this.thetaRange/2;
 
       if(_maxAngle>360){_maxAngle-=360;}
       else if(_maxAngle==360){_maxAngle=360;}
@@ -115,7 +116,7 @@ class Particle {
       this.radius = this.originalRadius;
     }
     
-    // 
+    // Opacidad por alejarse
     if(this.opacity <= 0.0){
       this.orbit = this.originalOrbit;
       this.opacity = Mobility.isStickPressed

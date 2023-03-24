@@ -47,11 +47,13 @@ dependencies:
   flutter_joystick: ^0.0.3
   # Aquí podemos ver la lista de familyfonts ⬇
   # https://raw.githubusercontent.com/material-foundation/flutter-packages/main/packages/google_fonts/lib/google_fonts.dart
-  #Bluetooth
+  # Bluetooth
   flutter_bluetooth_serial: ^0.4.0
   # For show SplashScreen
   flutter_native_splash: ^2.2.19
   #go_router: ^6.2.0
+  # Arrays library
+  scidart: ^0.0.2-dev.12
 
 flutter_native_splash:
   color: "#0C2035"

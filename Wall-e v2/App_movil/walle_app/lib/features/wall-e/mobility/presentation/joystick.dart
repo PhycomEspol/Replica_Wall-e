@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
-import 'dart:math';
 
+import 'package:walle_app/core/config.dart';
 import 'joystick_base.dart';
 import 'joystick_stick.dart';
 import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
@@ -56,20 +56,12 @@ class _MyJoystickState extends State<MyJoystick> {
         _y = - double.parse(details.y.toStringAsFixed(2)); // Naturalmente arriba es negativo y abajo positivo
 
         if(_x!=_xBefore || _y!=_yBefore){ // Cuando presenta cambios de posición
-          print("Posición -> \n\tx: "+_x.toString()+"\n\ty: "+_y.toString());
-
-          print("isStickPressed: ${Mobility.isStickPressed}");
-          Mobility.theta = atan(_y/_x)*(180/pi);
-          if(Mobility.theta<0){
-            Mobility.theta += 180;
-          }
-          if(_y<0){
-            Mobility.theta += 180;
-          }
-          if(_y==0 && _x!=0){
-            Mobility.theta = _x>0 ? 0 : 180;
-          }
-          print("Theta: ${Mobility.theta}");
+          //print("Posición -> \n\tx: "+_x.toString()+"\n\ty: "+_y.toString());
+          //print("isStickPressed: ${Mobility.isStickPressed}");
+          
+          wall_e.mobility.setVector(_x, _y);
+          //print("Theta: ${wall_e.mobility.theta}");
+          wall_e.sendMessage();
         }
       },
       onStickDragStart: () {
