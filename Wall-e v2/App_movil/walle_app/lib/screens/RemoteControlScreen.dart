@@ -4,7 +4,7 @@ import 'package:walle_app/core/app_assets.dart';
 import 'package:walle_app/core/config.dart';
 
 import 'package:walle_app/features/wall-e/arm/presentation/arm_slider.dart';
-import 'package:walle_app/features/connection/presentation/btn_connection.dart';
+import 'package:walle_app/features/connection/presentation/widgets/btn_connection.dart';
 import 'package:walle_app/features/wall-e/mobility/presentation/joystick.dart';
 import 'package:walle_app/main.dart';
 import 'package:walle_app/core/navigation/routes.dart';

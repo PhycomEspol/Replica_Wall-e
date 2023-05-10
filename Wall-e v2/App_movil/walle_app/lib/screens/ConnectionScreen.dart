@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:walle_app/core/app_assets.dart';
 //import 'package:go_router/go_router.dart';
 
-import 'package:walle_app/features/connection/presentation/btn_connection.dart';
+import 'package:walle_app/features/connection/presentation/widgets/btn_connection.dart';
+import 'package:walle_app/features/connection/presentation/widgets/device_item_widget.dart';
+import 'package:walle_app/features/connection/presentation/widgets/side_menu_connection_widget.dart';
 import 'package:walle_app/main.dart';
 import 'package:walle_app/core/navigation/routes.dart';
 import 'package:walle_app/screens/ScreenState.dart';
@@ -34,6 +36,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
   bool animate = false;
   final Duration animationTime = Duration(milliseconds: 1500);
   late double fractionWidth = 5.5; // Fracción de pantalla que ocupará imagen wall-e
+
+  bool _isSideMenuOpen = false;
 
   @override
   void initState() {
@@ -101,6 +105,16 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      /*drawer: _isSideMenuOpen 
+              ? SideMenuBluetooth(
+                onCloseAction: () {
+                  setState(() { this._isSideMenuOpen = false; });
+                }
+              ) 
+              : null,
+      */
       body: Stack(
         children:[
           Positioned(
@@ -123,7 +137,12 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
                 SizedBox(height: 16,),
                 BtnConnection(
                   screenstate: ScreenState.CONNECTION_PAGE, 
-                  screenToChange: goToControlNav,
+                  screenToChange: () {
+                    setState(() {
+                      _isSideMenuOpen = true;
+                    });
+                    print(_isSideMenuOpen);
+                  },
                 ),
               ],
             ),
@@ -166,6 +185,35 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
                 height: height,
               ),
             ),
+          ),
+          Stack(
+            children: [
+              if (this._isSideMenuOpen)
+                GestureDetector(
+                  onTap: () {
+                    setState(() { this._isSideMenuOpen = false; });
+                  },
+                  child: Container(width: width, height: height, color: Colors.transparent),
+                ),
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 400),
+                curve: Curves.fastOutSlowIn,
+                left: this._isSideMenuOpen ? 0: -296,
+                child: SideMenuBluetooth(
+                  height: height,
+                  width: 296,
+                  //backgroundColor: Color(0xFF1C1B1F),
+                  backgroundColor: Color(0xFF161618),
+                  onConnectAction: () {
+                    goToControlNav();
+                  },
+                  onCloseAction: () {
+                    setState(() { this._isSideMenuOpen = false; });
+                    print(this._isSideMenuOpen);
+                  }
+                ),
+              ),
+            ]
           ),
         ],
       ),
