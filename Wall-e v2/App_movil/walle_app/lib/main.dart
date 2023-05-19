@@ -1,14 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:walle_app/core/navigation/routes.dart';
 
 import 'package:walle_app/core/ui-system/themes.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 final bool rotateAutomaticly = true;
 
 void main() {
-  runApp(MyApp());
+  if (Platform.isAndroid) {
+    WidgetsFlutterBinding.ensureInitialized();
+    [
+      Permission.storage,
+      Permission.bluetooth,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan
+    ].request().then((status) {
+      runApp(MyApp());
+    });
+  } else {
+      runApp(MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
