@@ -1,3 +1,4 @@
+import 'package:walle_app/core/config.dart';
 import 'package:walle_app/features/wall-e/arm/domain/arm.dart';
 import 'package:walle_app/features/wall-e/mobility/domain/walle_mobility.dart';
 
@@ -28,7 +29,7 @@ class Wall_e{
 
   void sendMessage(){
     print(this.toString());
-    // TODO: Envio de mensaje por Bluetooth
+    connection.sendString(this.toString());
   }
 
 }

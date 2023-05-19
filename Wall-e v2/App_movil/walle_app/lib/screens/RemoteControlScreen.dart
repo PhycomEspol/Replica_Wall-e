@@ -74,6 +74,11 @@ class _RemoteControlState extends State<RemoteControlScreen> with RouteAware{
     print("Screen name Before in control");
     print(ModalRoute.of(context)?.settings.name);
     print(Navigator.of(context));
+    
+    print("Antes de la desconexión");
+    connection.disconnect();
+    print("Después de la desconexión");
+
     Future.delayed(
       Duration(milliseconds: 500),
       () {

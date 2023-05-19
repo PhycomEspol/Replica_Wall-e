@@ -1,15 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+//import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:walle_app/core/app_assets.dart';
+import 'package:walle_app/features/connection/domain/connection.dart';
+//import 'package:walle_app/features/connection/data/models/device.dart';
+//import 'package:walle_app/features/connection/domain/entities/connection.dart';
+//import 'package:walle_app/features/connection/domain/use_cases/select_device_use_case.dart';
 //import 'package:go_router/go_router.dart';
 
 import 'package:walle_app/features/connection/presentation/widgets/btn_connection.dart';
-import 'package:walle_app/features/connection/presentation/widgets/device_item_widget.dart';
 import 'package:walle_app/features/connection/presentation/widgets/side_menu_connection_widget.dart';
 import 'package:walle_app/main.dart';
+import 'package:walle_app/core/config.dart';
 import 'package:walle_app/core/navigation/routes.dart';
 import 'package:walle_app/screens/ScreenState.dart';
+
 
 class ConnectionScreen extends StatefulWidget {
   const ConnectionScreen({super.key});
@@ -31,6 +38,8 @@ class ConnectionScreen extends StatefulWidget {
 
 class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
 
+  List<BluetoothDevice> _devicesList = [];
+
   late double height;
   late double width;
   bool animate = false;
@@ -42,6 +51,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
   @override
   void initState() {
     super.initState();
+    connection = Connection();
     this.animate=false;
   }
   
@@ -137,11 +147,55 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
                 SizedBox(height: 16,),
                 BtnConnection(
                   screenstate: ScreenState.CONNECTION_PAGE, 
-                  screenToChange: () {
-                    setState(() {
-                      _isSideMenuOpen = true;
-                    });
-                    print(_isSideMenuOpen);
+                  screenToChange: () async {
+                    bool btEnabled = await connection.requestEnable();
+                    if (btEnabled) {
+                        print("\n\ndespues del delay");
+                        /*await connection.scanDevices().then((List<BluetoothDevice> value) {
+                          _devicesList = value;
+                          print("scanDevices inside then: "+_isSideMenuOpen.toString());
+                        });
+                        print("scanDevices outside then: "+_isSideMenuOpen.toString());
+                        */
+                        await connection.scanDevices();
+                        setState(() {
+                          _isSideMenuOpen = true;
+                        });
+                        print("isMenuOpen: "+_isSideMenuOpen.toString());
+                      
+                    }else{
+                      // TODO: mostrar un pop-up
+                      _devicesList = [];
+                      print("No se habilitó el dispositivo");
+                    }
+                    print("Dispositivos: ...");
+                    print(_devicesList);
+                    /*
+                    print("\n\nantes del delay " + btEnabled.toString());
+                    await Future.delayed(Duration(milliseconds: 2000), () {
+                      print(btEnabled == true);
+                      btEnabled.then((bool value) {
+                        print("Value de btEnabled: "+value.toString());
+                        if (value) {
+                            print("\n\ndespues del delay");
+                            setState(() {
+                              connection.scanDevices().then((List<BluetoothDevice> value) {
+                                _devicesList = value;
+                              });
+                              _isSideMenuOpen = true;
+                            });
+                            print(_isSideMenuOpen);
+                          
+                        }else{
+                          // TODO: mostrar un pop-up
+                          _devicesList = [];
+                          print("No se habilitó el dispositivo");
+                        }
+                      });
+                    }); // Pregunta si desea habilitar el módulo bluetooth
+                    print("Dispositivos: ...");
+                    print(_devicesList);
+                    */
                   },
                 ),
               ],
@@ -186,8 +240,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
               ),
             ),
           ),
+          if (this._isSideMenuOpen)
           Stack(
-            children: [
+            children: /*!this._isSideMenuOpen
+            ? []
+            : */[
               if (this._isSideMenuOpen)
                 GestureDetector(
                   onTap: () {
@@ -200,6 +257,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> with RouteAware {
                 curve: Curves.fastOutSlowIn,
                 left: this._isSideMenuOpen ? 0: -296,
                 child: SideMenuBluetooth(
+                  connection: connection,
+                  devices: _isSideMenuOpen ? connection.bondedDevices()
+                                           : Stream.empty(),
                   height: height,
                   width: 296,
                   //backgroundColor: Color(0xFF1C1B1F),

@@ -9,7 +9,7 @@ class CustomListItem extends StatefulWidget {
   final Color iconColor;
   final Color defaultColor;
 
-  final VoidCallback onTapConnect;
+  VoidCallback onTapConnect;
   VoidCallback onTapCancel;
   VoidCallback onTapItem;
   bool isActive;
@@ -127,12 +127,13 @@ class _CustomListItemState extends State<CustomListItem> {
                     secondSegmentColor: red.withOpacity(0.8), 
                     secondSegmentIcon: Icons.close_rounded,
                     borderColor: Color(0xFF00CCFF), 
-                    onTapFirst: () {
+                    onTapFirst: () async {
+                      // TODO: Conectar
+                      widget.onTapConnect();
                       setState(() {
                         if(widget.isActive) {
                           // TODO: Cerrar el SideMenu
-                          // TODO: Conectar
-                          widget.onTapConnect();
+                          
                         }
                       });
                       

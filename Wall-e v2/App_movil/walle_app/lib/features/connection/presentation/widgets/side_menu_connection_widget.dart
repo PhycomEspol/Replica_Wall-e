@@ -1,8 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:walle_app/core/config.dart';
+//import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:walle_app/core/ui-system/colors.dart';
 
+//import 'package:walle_app/features/connection/data/models/device.dart';
+import 'package:walle_app/features/connection/domain/connection.dart';
+//import 'package:walle_app/features/connection/domain/entities/connection.dart';
+//import 'package:walle_app/features/connection/domain/use_cases/select_device_use_case.dart';
 import 'device_item_widget.dart';
+
+import 'package:walle_app/main.dart';
+
 
 class SideMenuBluetooth extends StatefulWidget {
   
@@ -12,8 +22,13 @@ class SideMenuBluetooth extends StatefulWidget {
   VoidCallback onCloseAction;
   VoidCallback onConnectAction;
 
+  Connection connection;
+  Stream<List<BluetoothDevice>> devices;
+
   SideMenuBluetooth({
     super.key, 
+    required this.connection,
+    required this.devices,
     required this.height,
     required this.width,
     required this.backgroundColor,
@@ -28,6 +43,33 @@ class SideMenuBluetooth extends StatefulWidget {
 class _SideMenuBluetoothState extends State<SideMenuBluetooth> {
   double topMargin = 0;
   int currentSelected = -1; // -1 cuando ninguno está seleccionado
+
+  /*  
+  // ---------------------------- Route Observer ----------------------------
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this as RouteAware, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+  
+  @override
+  void didPop() {
+    final route = ModalRoute.of(context)?.settings.name;
+    print('\ndidPop in Connection route: $route');
+  }
+
+  @override
+  void didPush() {
+    final route = ModalRoute.of(context)?.settings.name;
+    print('\ndidPush Connection route: $route');
+  }
+  // ------------------------------------------------------------------------
+  */
+  @override
+  Future<void> dispose() async {
+    super.dispose();
+    print("Dispose side_menu");
+  }
 
   void closeSideMenu(BuildContext context){
     //Navigator.of(context).pop();
@@ -100,44 +142,68 @@ class _SideMenuBluetoothState extends State<SideMenuBluetooth> {
                     //height: double.infinity,
                     //color: Colors.amber,
                     padding: const EdgeInsets.only(left: 2, right: 4, bottom: 0, ),
-                    child: ListView.separated(
-                      clipBehavior: Clip.hardEdge,
-                      scrollDirection: Axis.vertical,
-                      dragStartBehavior: DragStartBehavior.start,
-                      itemCount: 25+1,
-                      itemBuilder: (_, index) {
-                        return index == 25
-                              ? SizedBox(height: 40, width: 40,) // Último elemento, permite que el último item esté arriba del gradiente
-                              : CustomListItem(
-                                  title: 'Title',
-                                  subtitle: 'Adress', 
-                                  iconData: Icons.bluetooth_searching, 
-                                  iconColor: Colors.white, 
-                                  defaultColor: this.widget.backgroundColor,
-                                  isActive: this.currentSelected == index,
-                                  onTapItem: () {
-                                    setState(() {
-                                      this.currentSelected = index;
-                                    });
-                                  },
-                                  onTapConnect: () {
-                                    closeSideMenu(context);
-                                    widget.onConnectAction();
-                                    // TODO: Connection Code
-                                  },
-                                  onTapCancel: () {
-                                    setState(() {
-                                      this.currentSelected = -1;
-                                    });
-                                  },
-                                );
-                      }, 
-                      separatorBuilder: (context, index2) => Divider(height: 2,), 
-                    ),
+                    child: StreamBuilder(
+                      stream: widget.devices,
+                      builder: (context, AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+                        final data = snapshot.data;
+                        print("data en sidemenu: "+data.toString());
+                        if(data == null){
+                          return CircularProgressIndicator();
+                        }
+
+                        if (snapshot.hasData){
+                          return ListView.separated(
+                            clipBehavior: Clip.hardEdge,
+                            scrollDirection: Axis.vertical,
+                            dragStartBehavior: DragStartBehavior.start,
+                            itemCount: data.length+1,
+                            itemBuilder: (_, index) {
+                              print(data.length.toString() + " - " + index.toString());
+                              return data.length == index
+                                    ? SizedBox(height: 40, width: 40,) // Último elemento, permite que el último item esté arriba del gradiente
+                                    : CustomListItem(
+                                        title: data[index].name.isEmpty ? 'Unknown'
+                                                                        : data[index].name,
+                                        subtitle: data[index].id.id, 
+                                        iconData: Icons.bluetooth_searching, 
+                                        iconColor: Colors.white, 
+                                        defaultColor: this.widget.backgroundColor,
+                                        isActive: this.currentSelected == index,
+                                        onTapItem: () {
+                                          setState(() {
+                                            if (this.currentSelected == index){
+                                              this.currentSelected = -1;
+                                            }else{
+                                              this.currentSelected = index;
+                                            }
+                                          });
+                                        },
+                                        onTapConnect: () async {
+                                          bool connected = await connection.connect(data[index], () { 
+                                            // TODO: Disconnection inesperada
+                                            print("Se desconectó inesperadamente");
+                                          });
+                                          if (connected) {
+                                            closeSideMenu(context);
+                                            widget.onConnectAction();
+                                          }
+                                        },
+                                        onTapCancel: () {
+                                          setState(() {
+                                            this.currentSelected = -1;
+                                          });
+                                        },
+                                      );
+                            }, 
+                            separatorBuilder: (context, index2) => Divider(height: 2,), 
+                          );
+                        }else{
+                          return Text("No dispositivos cercanos");
+                        }
+                      },
+                    )
                   ),
                 ),
-
-
               ]
             ),
           ),
