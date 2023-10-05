@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -21,12 +22,9 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
     public static String address = null;
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     public boolean activar;
+
     Handler bluetoothIn;
     final int handlerState = 0;
-    private ConnectedThread MyConexionBT;
+
+    private BluetoothConnection MyConexionBT;
     Button btnConnect, btnDisconnect;
 
     //Animacion
@@ -222,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Simulo que estoy conectado
+        setEnableControls(true);
+        switchConectionButtonsEnable(ConnectedBT.CONNECTED);
 
     }
 
@@ -261,6 +264,8 @@ public class MainActivity extends AppCompatActivity {
      * Funcion para habilitar o deshabilitar todos los controles en la app para el robot
      * @param enable
      */
+
+    //Function that set the Controls when is conected or not
     void setEnableControls(boolean enable){
         float opacity_level = 1;
         if(!enable){ opacity_level = (float) 0.5;}//opacidad en 50% para cuando se deshabiliten los controles
@@ -280,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
         rightArm.setAlpha(opacity_level);
     }
 
+    //Function that set especific values to the controls
     void setEnable_forEspecificControls(boolean enableArmL, boolean enableArmR,
                                         boolean enableUp, boolean enableDown, boolean enableLeft, boolean enableRight){
         //SeekBars de brazos
@@ -292,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
         btnLeft.setEnabled(enableLeft);
     }
 
+    //Estado del dispositivo, conectado o desconectado
     public enum ConnectedBT{CONNECTED, DISCONNECTED;}
 
     /**
@@ -308,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Function that sending especific values to the controls to move the robot
     @SuppressLint("ClickableViewAccessibility")
     private void setConfiguration_to_buttons(){
         btnUp.setOnTouchListener(new View.OnTouchListener() {
@@ -367,10 +375,10 @@ public class MainActivity extends AppCompatActivity {
     private void excecuteControlActions(Controls direction, MotionEvent motionEvent){
         if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){//cuando se lo presiona
             direction.getButton().startAnimation(direction.getScaleDown());// ANIMACION
-            MyConexionBT.write(direction.getName());//                  Comunicacion con arduino
+            //MyConexionBT.write(direction.getName());//                  Comunicacion con arduino
         }else if(motionEvent.getAction()==MotionEvent.ACTION_UP){//cuando se lo suelta
             direction.getButton().startAnimation(direction.getScaleUp());// ANIMACION
-            MyConexionBT.write(0);//                  Comunicacion con arduino
+            //MyConexionBT.write(0);//                  Comunicacion con arduino
         }
     }
 
@@ -439,8 +447,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Se crea un hilo para la comunicación bluetooth
-            MyConexionBT = new ConnectedThread(btSocket);
-            MyConexionBT.start();
+            MyConexionBT = new BluetoothConnection(btSocket,bluetoothIn,handlerState,getApplicationContext());
+            //MyConexionBT.start();
             System.out.println("\n\tConection start");
         }
     }
@@ -451,12 +459,16 @@ public class MainActivity extends AppCompatActivity {
         if(btSocket!=null) {
             try {// Cuando se sale de la aplicación, esto permite que no se deje abierto el socket
                 btSocket.close();
+                if (MyConexionBT != null){
+                    MyConexionBT.cancel();
+                }
             } catch (IOException e) {
             }
         }
     }
 
-    private class ConnectedThread extends Thread {
+    //poner en otro archivo lo de bluetooth
+    /*private class ConnectedThread extends Thread {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
@@ -511,124 +523,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-
+    }*/
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * ProtectedSeekBar
- * 01/27/15 *
- * @author Jetsada Machom <jim@imjim.im>
- */
-/*
-public class ProtectedSeekBar extends SeekBar {
-    private Drawable mThumb;
-
-    public ProtectedSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-    public ProtectedSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-    public ProtectedSeekBar(Context context) {
-        super(context);
-    }
-
-    @Override
-    public void setThumb(Drawable thumb) {
-        super.setThumb(thumb);
-        mThumb = thumb;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            if( event.getX() < mThumb.getBounds().left ||
-                    event.getX() > mThumb.getBounds().right ||
-                    event.getY() > mThumb.getBounds().bottom ||
-                    event.getY() < mThumb.getBounds().top) {
-                return false;
-            }
-        }
-        return super.onTouchEvent(event);
-    }
-}
-*/
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-public class Slider extends SeekBar {
-    private Drawable mThumb;
-
-    public Slider(Context context) {
-        super(context);
-    } public Slider(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    @Override public void setThumb(Drawable thumb) {
-        super.setThumb(thumb);
-        mThumb = thumb;
-    }
-
-    @Override public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getX() >= mThumb.getBounds().left &&
-                    event.getX() <= mThumb.getBounds().right &&
-                    event.getY() <= mThumb.getBounds().bottom &&
-                    event.getY() >= mThumb.getBounds().top) {
-                super.onTouchEvent(event);
-            } else {
-                return false;
-            }
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            return false;
-        } else {
-            super.onTouchEvent(event);
-        }
-        return true;
-    }
-}
-*/
-/*
-package com.androidbook.hiworld;
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.SeekBar;
-*/
-//public class HiWorldActivity extends Activity {
-//    int originalProgress;
-    /**
-     * Called when the activity is first created.
-     */
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        SeekBar seek = (SeekBar)findViewById(R.id.EnableBar);
-        seek.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
-                ((TextView)findViewById(R.id.SeekTxt)).setText("Value: "+progress);
-                if(fromTouch == true){ // only allow changes by 1 up or down
-                    if ((progress > (originalProgress+24)) || (progress < (originalProgress-24))) {
-                        seekBar.setProgress( originalProgress);
-                    } else {
-                        originalProgress = progress;
-                    }
-                }
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //Nothing here..
-            } @Override public void onStartTrackingTouch(SeekBar seekBar) {
-                originalProgress = seekBar.getProgress();
-            }
-        });
-    }
-}
-*/
